@@ -9,12 +9,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: '#004080',
-        secondary: '#FFA500',
-        accent: '#556B2F',
-        highlight: '#87CEEB',
-        bg: '#F5F5F5',
-        typography: '#333333',
+        // primary: '#004080',
+        // secondary: '#FFA500',
+        // accent: '#556B2F',
+        // highlight: '#87CEEB',
+        // bg: '#F5F5F5',
+        // typography: '#333333',
+        // neutral: '#ffffff'
+        primary: '#B22222',
+        secondary: '#6050DC',
+        accent: '#FF6F61',
+        highlight: '#E6AF2E',
+        bg: '#EDC9AF',
+        typography: '#008080',
         neutral: '#ffffff'
       }
     },
