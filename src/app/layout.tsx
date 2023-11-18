@@ -7,6 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Darija translate",
   description: "Translate from spanish to darija and Vice versa",
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
