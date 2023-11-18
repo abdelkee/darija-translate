@@ -106,7 +106,7 @@ function HomePage() {
             </div>
           )}
         </form>
-        <div className="w-3/4 self-center border-t border-gray-300"></div>
+        <div className="w-3/4 self-center border-t border-accent/30"></div>
         <div className="p-6 w-full">
           <p
             className={` ${

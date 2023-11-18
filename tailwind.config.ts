@@ -20,7 +20,7 @@ const config: Config = {
         secondary: '#6050DC',
         accent: '#FF6F61',
         highlight: '#E6AF2E',
-        bg: '#EDC9AF',
+        bg: '#FFFDFB',
         typography: '#008080',
         neutral: '#ffffff'
       }
