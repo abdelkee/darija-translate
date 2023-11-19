@@ -30,7 +30,7 @@ function HomePage() {
 
   const translateToDarija = async (formData: FormData) => {
     setTranslating(true);
-    const wordToTranslate = formData.get("wordToTranslate");
+    const wordToTranslate = formData.get("wordToTranslate")?.toString().trim();
     let { data, error } = await supabase
       .from("vocab")
       .select("darija_word")
@@ -52,7 +52,7 @@ function HomePage() {
 
   const translateToSpanish = async (formData: FormData) => {
     setTranslating(true);
-    const wordToTranslate = formData.get("wordToTranslate");
+    const wordToTranslate = formData.get("wordToTranslate")?.toString().trim();
     let { data, error } = await supabase
       .from("vocab")
       .select("spanish_word")
