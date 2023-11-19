@@ -108,7 +108,7 @@ function HomePage() {
           {!translating ? (
             <button
               type="submit"
-              className="text-primary disabled:text-primary/20"
+              className="text-primary disabled:text-primary/20 focus:scale-95 focus:opacity-75"
               disabled={!inputValue}
             >
               <HiMiniPaperAirplane size={24} />
@@ -140,7 +140,10 @@ function HomePage() {
         <p className="rounded-lg px-2 py-3 bg-neutral font-semibold flex-1 text-center order-1 transition-all">
           {languageFrom}
         </p>
-        <button onClick={switchLanguages} className="order-2">
+        <button
+          onClick={switchLanguages}
+          className="order-2 focus:scale-95 focus:opacity-75"
+        >
           <HiArrowsRightLeft size={24} />
         </button>
         <p
