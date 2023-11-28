@@ -4,10 +4,12 @@ import {
   HiMiniPaperAirplane,
   HiArrowsRightLeft,
   HiArrowPath,
+  HiPlus,
 } from "react-icons/hi2";
 import { supabase } from "./utils/supabaseServer";
 import copy from "clipboard-copy";
 import toast, { Toaster } from "react-hot-toast";
+import Modal from "./Modal";
 
 export const revalidate = 0;
 
@@ -27,6 +29,7 @@ function HomePage() {
   const [translatedWord, setTranslatedWord] = useState("");
   const inputRef = useRef(null);
   const [translating, setTranslating] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const translateToDarija = async (formData: FormData) => {
     setTranslating(true);
@@ -40,7 +43,7 @@ function HomePage() {
       if (error) return console.log("Error getting the translation ", error);
 
       if (data === null || data.length === 0) {
-        setTranslatedWord("No existe aun en base de datos");
+        setTranslatedWord("No existe !");
         setTranslating(false);
       } else {
         const translationResult = data[0]?.darija_word as string;
@@ -60,7 +63,7 @@ function HomePage() {
     setTimeout(() => {
       if (error) return console.log("Error getting the translation ", error);
       if (data === null || data.length === 0) {
-        setTranslatedWord("No existe aun en base de datos");
+        setTranslatedWord("No existe !");
         setTranslating(false);
       } else {
         const translationResult = data[0]?.spanish_word as string;
@@ -84,8 +87,13 @@ function HomePage() {
     await copy(translatedWord);
     toast.success("Copiado!");
   };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
   return (
-    <main className="pt-16 gap-5 flex flex-col">
+    <main className="pt-16 gap-5 flex flex-col max-w-xl mx-auto">
       <Toaster />
       <section className="p-2 rounded-lg shadow-md border border-typography/30 bg-neutral flex flex-col gap-2 transform transition-transform">
         <form
@@ -123,17 +131,25 @@ function HomePage() {
           )}
         </form>
         <div className="w-3/4 self-center border-t border-secondary/30"></div>
-        <div className="p-6 w-full">
+        <div className="p-6 w-full flex justify-between">
           <span
             onClick={copyResult}
             className={` ${
-              translatedWord === "No existe aun en base de datos"
+              translatedWord === "No existe !"
                 ? "text-red-400"
                 : "text-primary font-semibold"
             }`}
           >
             {translatedWord}
           </span>
+          {translatedWord === "No existe !" && (
+            <button
+              onClick={openModal}
+              className="focus:scale-95 focus:opacity-75"
+            >
+              <HiPlus size={24} />
+            </button>
+          )}
         </div>
       </section>
       <section className="p-2 flex justify-between gap-4">
@@ -152,6 +168,13 @@ function HomePage() {
           {languageTo}
         </p>
       </section>
+      {isModalOpen && (
+        <Modal
+          value={inputValue}
+          setIsModalOpen={setIsModalOpen}
+          langFrom={languageFrom}
+        />
+      )}
     </main>
   );
 }
