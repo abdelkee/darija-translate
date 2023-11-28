@@ -22,23 +22,30 @@ type Props = {
   value: string;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   langFrom: string;
+  setInputValue: React.Dispatch<React.SetStateAction<string>>;
+  setTranslatedWord: React.Dispatch<React.SetStateAction<string>>;
 };
 
-function Modal({ value, setIsModalOpen, langFrom }: Props) {
+function Modal({
+  value,
+  setIsModalOpen,
+  langFrom,
+  setInputValue,
+  setTranslatedWord,
+}: Props) {
   //   const [fromWord, setFromWord] = useState(value);
   //   const [toWord, setToWord] = useState("");
   const [singPlur, setSingPlur] = useState("singular");
   const [hasL, setHasL] = useState(true);
   const [gender, setGender] = useState("m");
   const [submitting, setSubmitting] = useState(false);
-  const router = useRouter();
+
   const addWordToVocab = async (formData: FormData) => {
     setSubmitting(true);
     const fromWord = formData.get("from");
     const toWord = formData.get("to");
     const category = formData.get("category");
     if (!fromWord || !toWord || !category || !singPlur || !gender) return;
-    console.log(singPlur, hasL, gender, fromWord, toWord);
 
     const { data, error } = await supabase.from("vocab").insert([
       {
@@ -62,6 +69,8 @@ function Modal({ value, setIsModalOpen, langFrom }: Props) {
         error.message
       );
     setSubmitting(false);
+    setInputValue("");
+    setTranslatedWord("");
     setIsModalOpen(false);
   };
 
@@ -69,7 +78,7 @@ function Modal({ value, setIsModalOpen, langFrom }: Props) {
     <main className="fixed top-0 left-0 w-full h-full bg-black/60">
       <form
         action={addWordToVocab}
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-neutral rounded p-4 shadow-lg flex flex-col gap-4"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-neutral rounded p-4 shadow-lg flex flex-col gap-4 w-full max-w-xl"
       >
         <button
           onClick={() => setIsModalOpen(false)}
@@ -93,7 +102,7 @@ function Modal({ value, setIsModalOpen, langFrom }: Props) {
           />
         </section>
         <section className="flex justify-between gap-2">
-          <select className="flex-1 focus:outline-none py-4" name="category">
+          <select className="flex-1 focus:outline-none p-4" name="category">
             {categories.map((category) => (
               <option key={category}>{category}</option>
             ))}

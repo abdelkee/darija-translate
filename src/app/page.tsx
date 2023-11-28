@@ -39,18 +39,16 @@ function HomePage() {
       .select("darija_word")
       .eq("spanish_word", wordToTranslate?.toString().toLowerCase());
 
-    setTimeout(() => {
-      if (error) return console.log("Error getting the translation ", error);
+    if (error) return console.log("Error getting the translation ", error);
 
-      if (data === null || data.length === 0) {
-        setTranslatedWord("No existe !");
-        setTranslating(false);
-      } else {
-        const translationResult = data[0]?.darija_word as string;
-        setTranslatedWord(translationResult);
-        setTranslating(false);
-      }
-    }, 1000);
+    if (data === null || data.length === 0) {
+      setTranslatedWord("No existe !");
+      setTranslating(false);
+    } else {
+      const translationResult = data[0]?.darija_word as string;
+      setTranslatedWord(translationResult);
+      setTranslating(false);
+    }
   };
 
   const translateToSpanish = async (formData: FormData) => {
@@ -60,17 +58,15 @@ function HomePage() {
       .from("vocab")
       .select("spanish_word")
       .eq("darija_word", wordToTranslate?.toString().toLowerCase());
-    setTimeout(() => {
-      if (error) return console.log("Error getting the translation ", error);
-      if (data === null || data.length === 0) {
-        setTranslatedWord("No existe !");
-        setTranslating(false);
-      } else {
-        const translationResult = data[0]?.spanish_word as string;
-        setTranslatedWord(translationResult);
-        setTranslating(false);
-      }
-    }, 1000);
+    if (error) return console.log("Error getting the translation ", error);
+    if (data === null || data.length === 0) {
+      setTranslatedWord("No existe !");
+      setTranslating(false);
+    } else {
+      const translationResult = data[0]?.spanish_word as string;
+      setTranslatedWord(translationResult);
+      setTranslating(false);
+    }
   };
 
   const switchLanguages = () => {
@@ -173,6 +169,8 @@ function HomePage() {
           value={inputValue}
           setIsModalOpen={setIsModalOpen}
           langFrom={languageFrom}
+          setInputValue={setInputValue}
+          setTranslatedWord={setTranslatedWord}
         />
       )}
     </main>
